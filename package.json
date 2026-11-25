@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "typecheck": "tsc",
     "test": "playwright test",
     "test:chromium": "playwright test --project=chromium",
     "test:ui": "playwright test --ui",
@@ -15,6 +16,7 @@
   "type": "commonjs",
   "devDependencies": {
     "@playwright/test": "^1.63.0",
-    "@types/node": "^26.6.1"
+    "@types/node": "^26.6.1",
+    "typescript": "^5.9.3"
   }
 }
