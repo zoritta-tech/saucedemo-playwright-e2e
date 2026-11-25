@@ -1,0 +1,32 @@
+name: Playwright E2E
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  e2e:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Install project dependencies
+        run: npm ci
+      - name: Install browsers and system dependencies
+        run: npx playwright install --with-deps
+      - name: Run Playwright tests
+        id: tests
+        run: npm test
+      - name: Upload Playwright report
+        if: failure() && steps.tests.outcome == 'failure'
+        uses: actions/upload-artifact@v5
+        with:
+          name: playwright-report
+          path: playwright-report/
